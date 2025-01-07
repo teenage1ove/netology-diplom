@@ -71,30 +71,37 @@ function DatePicker() {
 	return (
 		<div className='datepicker'>
 			{currentDate < startDate && (
-				<button onClick={handlePrevClick} className='datepicker__prev'>
+				<button onClick={handlePrevClick} className='datepicker__button'>
 					&lt;
 				</button>
 			)}
-			<div className='datepicker__dates'>
-				{dates.map(day => (
-					<div
-						key={day.formattedDate}
-						className={`datepicker__item ${
-							isDateSelected(day) ? 'datepicker__item-selected' : ''
-						}`}
-						onClick={() => handleDateClick(day.date)}
-					>
-						<div className='datepicker__today'>
-							{isToday(day) ? 'Сегодня' : ''}
-						</div>
-						<div className='datepicker__dayofweek'>{day.dayOfWeek}</div>
-						<div className='datepicker__day'>{day.day}</div>
+
+			{dates.map(day => (
+				<div
+					key={day.formattedDate}
+					className={`datepicker__item ${
+						isDateSelected(day) ? 'datepicker__item_selected' : ''
+					}`}
+					onClick={() => handleDateClick(day.date)}
+				>
+					<div className='datepicker__item-date'>
+						{isToday(day) ? (
+							<div>
+								<p>Сегодня</p>
+								<p>{day.dayOfWeek}, {day.day}</p>
+							</div>
+						) : (
+							<div className='datepicker__item-day'>
+								{day.dayOfWeek},<p>{day.day}</p>
+							</div>
+						)}
 					</div>
-				))}
-				<button onClick={handleNextClick} className='datepicker__next'>
-					&gt;
-				</button>
-			</div>
+				</div>
+			))}
+
+			<button onClick={handleNextClick} className='datepicker__button'>
+				&gt;
+			</button>
 		</div>
 	)
 }
