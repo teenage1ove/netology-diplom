@@ -1,0 +1,21 @@
+.container {
+    width: 990px;
+    margin: 0 auto;
+    min-height: 100vh; /* Ensure layout takes up full viewport height */
+  }
+  
+  .user-layout {
+    background-image: url('../../assets/user-main.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+  
+  
+  .admin-layout {
+    background-image: url('../../assets/admin-main.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+  
