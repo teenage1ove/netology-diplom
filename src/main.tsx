@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-import './index.css'
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './index.css'
+import { AdminMain } from './pages/AdminMain/AdminMain.tsx'
 import { Layout } from './pages/Layout/Layout.tsx'
 import { UserMain } from './pages/UserMain/UserMain.tsx'
 import { RootStoreContext } from './store/root-store-context.ts'
 import RootStore from './store/root-store.ts'
-import { AdminMain } from './pages/AdminMain/AdminMain.tsx'
+import { Auth } from './pages/Auth/Auth.tsx'
 
 const router = createBrowserRouter([
 	{
@@ -18,6 +18,10 @@ const router = createBrowserRouter([
 	{
 		path: '/admin',
 		element: <AdminMain />,
+	},
+	{
+		path: '/auth',
+		element: <Auth />
 	}
 ])
 

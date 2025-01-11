@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import './DatePicker.scss'
+import { observer } from 'mobx-react'
+import { useStore } from '../../store/root-store-context'
 
 interface MovieDate {
 	dayOfWeek: string
@@ -8,10 +10,17 @@ interface MovieDate {
 	date: Date
 }
 
-function DatePicker() {
+const DatePicker = observer(function() {
 	const [currentDate, setCurrentDate] = useState(new Date())
 	const [startDate, setStartDate] = useState(new Date())
 	const [selectedDate, setSelectedDate] = useState(new Date())
+
+	const {dateStore: {setFilmDate, filmDate}} = useStore()
+
+	useEffect(() => {
+		setFilmDate(selectedDate)
+		console.log(filmDate)
+	}, [setFilmDate, selectedDate, filmDate])
 
 	useEffect(() => {
 		setCurrentDate(new Date())
@@ -35,7 +44,7 @@ function DatePicker() {
 	const dates = generateDates()
 
 	const handleDateClick = (date: Date) => {
-		console.log(date)
+		setFilmDate(date)
 		setSelectedDate(date)
 	}
 
@@ -104,6 +113,6 @@ function DatePicker() {
 			</button>
 		</div>
 	)
-}
+})
 
 export default DatePicker

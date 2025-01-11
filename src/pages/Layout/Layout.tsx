@@ -6,14 +6,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 	useEffect(() => {
 		const currentRoute = window.location.pathname 
-		setIsPageAdmin(currentRoute.includes('/admin')) 
+		setIsPageAdmin(currentRoute.includes('/admin') || currentRoute.includes('/auth')) 
 	}, []) 
 
 	const handleRouteChange = () => {
 		const currentRoute = window.location.pathname
-		setIsPageAdmin(currentRoute.includes('/admin'))
+		setIsPageAdmin(currentRoute.includes('/admin') || currentRoute.includes('/auth'))
 	}
-    
+
 	useEffect(() => {
 		window.addEventListener('popstate', handleRouteChange)
 		return () => window.removeEventListener('popstate', handleRouteChange)
