@@ -4,24 +4,36 @@ import { Film, RootInterface } from '../interfaces/api.interfaces'
 
 class FilmsStore {
 	films: Film[] | null = null
+
 	loading = false
 	error: string | null = null
 	constructor() {
 		makeAutoObservable(this)
 	}
 
-	getFilms = async (date: Date) => {
-		const formatedDate = new Date(date).toISOString().slice(0, 10)
+	getFilms = async () => {
 		this.loading = true
 		this.error = null
-		console.log(formatedDate)
+
 		try {
 			const response = await axios.get<RootInterface>(
-				'https://shfe-diplom.neto-server.ru/alldata?date=' + formatedDate
+				'https://shfe-diplom.neto-server.ru/alldata'
 			)
-			if (response.data && response.data.result.films) {
+
+			if (response.data.result) {
+				const { films, halls, seances } = response.data.result
+
+				const hallsWithSeances = halls.map(hall => ({
+					...hall,
+					seances: seances.filter(seance => seance.seance_hallid === hall.id),
+				}))
+
 				runInAction(() => {
-					this.films = response.data.result.films
+					this.films = films.filter(film => {
+						return hallsWithSeances.some(hall =>
+							hall.seances.some(seance => seance.seance_filmid === film.id)
+						)
+					})
 				})
 			} else {
 				throw new Error('Invalid data format from API')
