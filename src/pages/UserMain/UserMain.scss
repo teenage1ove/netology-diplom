@@ -3,6 +3,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 14px;
     }
 
     &__title {
@@ -11,7 +12,6 @@
         color: #fff;  
         text-transform: uppercase;   
         line-height: 39px; 
-        margin: 14px;  
     }
 
     &__title-accent {
