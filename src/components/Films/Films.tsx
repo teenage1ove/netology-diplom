@@ -1,14 +1,16 @@
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 import { useStore } from '../../store/root-store-context'
+import { Film } from '../Film/Film'
 import './Films.scss'
-export const Films = observer(function ({date}: {date: Date }) {
+
+export const Films = observer(function ({ date }: { date: Date }) {
 	const {
-		filmsStore: { films, getFilms, loading, error },
+		filmsStore: { films, loading, error, getFilms },
 	} = useStore()
 
 	useEffect(() => {
-		getFilms(date)
+		getFilms()
 	}, [getFilms, date])
 
 	if (loading) {
@@ -20,8 +22,11 @@ export const Films = observer(function ({date}: {date: Date }) {
 	}
 
 	return (
-		<div>
-			{films && films.map(film => <div key={film.id}>{film.film_name}</div>)}
+		<div className='films'>
+			{films &&
+				films.map(film => {
+					return <Film key={film.id} curFilm={film} />
+				})}
 		</div>
 	)
 })
